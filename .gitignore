@@ -1,0 +1,9 @@
+.DS_Store
+*.swp
+OpenGLES_TBDRTest/OpenGLES_TBDRTest.xcodeproj/project.xcworkspace/
+OpenGLES_TBDRTest/OpenGLES_TBDRTest.xcodeproj/xcuserdata/*
+OpenGLES_TBDRTest/OpenGLES_TBDRTest.xcworkspace/
+
+OpenGLES_TBDRTestTests/*
+OpenGLES_TBDRTest/Build/*
+

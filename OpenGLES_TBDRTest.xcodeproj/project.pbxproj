@@ -7,15 +7,25 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2565C4AB1CB40BAE00DCA45F /* BaseShader.m in Sources */ = {isa = PBXBuildFile; fileRef = 2565C4A81CB40BAE00DCA45F /* BaseShader.m */; };
+		2565C4AC1CB40BAE00DCA45F /* ShaderProcessor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2565C4AA1CB40BAE00DCA45F /* ShaderProcessor.mm */; };
 		259C4CF41CB40841001AD971 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 259C4CF31CB40841001AD971 /* main.m */; };
 		259C4CF71CB40841001AD971 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 259C4CF61CB40841001AD971 /* AppDelegate.m */; };
 		259C4CFA1CB40841001AD971 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 259C4CF91CB40841001AD971 /* ViewController.m */; };
 		259C4CFD1CB40841001AD971 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 259C4CFB1CB40841001AD971 /* Main.storyboard */; };
 		259C4CFF1CB40841001AD971 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 259C4CFE1CB40841001AD971 /* Assets.xcassets */; };
 		259C4D021CB40841001AD971 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 259C4D001CB40841001AD971 /* LaunchScreen.storyboard */; };
+		259C4D0D1CB40894001AD971 /* Quad.m in Sources */ = {isa = PBXBuildFile; fileRef = 259C4D0A1CB40894001AD971 /* Quad.m */; };
+		259C4D0E1CB40894001AD971 /* View.m in Sources */ = {isa = PBXBuildFile; fileRef = 259C4D0C1CB40894001AD971 /* View.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2565C4A71CB40BAE00DCA45F /* BaseShader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BaseShader.h; path = Shaders/BaseShader.h; sourceTree = "<group>"; };
+		2565C4A81CB40BAE00DCA45F /* BaseShader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BaseShader.m; path = Shaders/BaseShader.m; sourceTree = "<group>"; };
+		2565C4A91CB40BAE00DCA45F /* ShaderProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShaderProcessor.h; path = Shaders/ShaderProcessor.h; sourceTree = "<group>"; };
+		2565C4AA1CB40BAE00DCA45F /* ShaderProcessor.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ShaderProcessor.mm; path = Shaders/ShaderProcessor.mm; sourceTree = "<group>"; };
+		2565C4AF1CB40BFA00DCA45F /* SimpleFS.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = SimpleFS.fsh; path = Shaders/SimpleFS.fsh; sourceTree = "<group>"; };
+		2565C4B01CB40BFA00DCA45F /* SimpleVS.vsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = SimpleVS.vsh; path = Shaders/SimpleVS.vsh; sourceTree = "<group>"; };
 		259C4CEF1CB40841001AD971 /* OpenGLES_TBDRTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenGLES_TBDRTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		259C4CF31CB40841001AD971 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		259C4CF51CB40841001AD971 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -26,6 +36,10 @@
 		259C4CFE1CB40841001AD971 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		259C4D011CB40841001AD971 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		259C4D031CB40841001AD971 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		259C4D091CB40894001AD971 /* Quad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Quad.h; sourceTree = "<group>"; };
+		259C4D0A1CB40894001AD971 /* Quad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Quad.m; sourceTree = "<group>"; };
+		259C4D0B1CB40894001AD971 /* View.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = View.h; sourceTree = "<group>"; };
+		259C4D0C1CB40894001AD971 /* View.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = View.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,6 +53,28 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2565C4AD1CB40BB200DCA45F /* Shaders */ = {
+			isa = PBXGroup;
+			children = (
+				2565C4A71CB40BAE00DCA45F /* BaseShader.h */,
+				2565C4A81CB40BAE00DCA45F /* BaseShader.m */,
+				2565C4A91CB40BAE00DCA45F /* ShaderProcessor.h */,
+				2565C4AA1CB40BAE00DCA45F /* ShaderProcessor.mm */,
+				2565C4AF1CB40BFA00DCA45F /* SimpleFS.fsh */,
+				2565C4B01CB40BFA00DCA45F /* SimpleVS.vsh */,
+			);
+			name = Shaders;
+			sourceTree = "<group>";
+		};
+		2565C4AE1CB40BBA00DCA45F /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				259C4D091CB40894001AD971 /* Quad.h */,
+				259C4D0A1CB40894001AD971 /* Quad.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
 		259C4CE61CB40841001AD971 = {
 			isa = PBXGroup;
 			children = (
@@ -58,14 +94,12 @@
 		259C4CF11CB40841001AD971 /* OpenGLES_TBDRTest */ = {
 			isa = PBXGroup;
 			children = (
-				259C4CF51CB40841001AD971 /* AppDelegate.h */,
-				259C4CF61CB40841001AD971 /* AppDelegate.m */,
+				2565C4AD1CB40BB200DCA45F /* Shaders */,
+				2565C4AE1CB40BBA00DCA45F /* Models */,
+				259C4D0B1CB40894001AD971 /* View.h */,
+				259C4D0C1CB40894001AD971 /* View.m */,
 				259C4CF81CB40841001AD971 /* ViewController.h */,
 				259C4CF91CB40841001AD971 /* ViewController.m */,
-				259C4CFB1CB40841001AD971 /* Main.storyboard */,
-				259C4CFE1CB40841001AD971 /* Assets.xcassets */,
-				259C4D001CB40841001AD971 /* LaunchScreen.storyboard */,
-				259C4D031CB40841001AD971 /* Info.plist */,
 				259C4CF21CB40841001AD971 /* Supporting Files */,
 			);
 			path = OpenGLES_TBDRTest;
@@ -74,6 +108,12 @@
 		259C4CF21CB40841001AD971 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				259C4CF51CB40841001AD971 /* AppDelegate.h */,
+				259C4CF61CB40841001AD971 /* AppDelegate.m */,
+				259C4CFB1CB40841001AD971 /* Main.storyboard */,
+				259C4CFE1CB40841001AD971 /* Assets.xcassets */,
+				259C4D001CB40841001AD971 /* LaunchScreen.storyboard */,
+				259C4D031CB40841001AD971 /* Info.plist */,
 				259C4CF31CB40841001AD971 /* main.m */,
 			);
 			name = "Supporting Files";
@@ -149,6 +189,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				259C4D0E1CB40894001AD971 /* View.m in Sources */,
+				2565C4AB1CB40BAE00DCA45F /* BaseShader.m in Sources */,
+				259C4D0D1CB40894001AD971 /* Quad.m in Sources */,
+				2565C4AC1CB40BAE00DCA45F /* ShaderProcessor.mm in Sources */,
 				259C4CFA1CB40841001AD971 /* ViewController.m in Sources */,
 				259C4CF71CB40841001AD971 /* AppDelegate.m in Sources */,
 				259C4CF41CB40841001AD971 /* main.m in Sources */,
@@ -302,6 +346,7 @@
 				259C4D081CB40841001AD971 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
