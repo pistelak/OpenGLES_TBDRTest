@@ -9,12 +9,12 @@
 #import "ViewController.h"
 
 #import "ViewController.h"
-#import "Quad.h"
+
+#import <vector>
 
 @interface ViewController ()
 
 @property (nonatomic, strong) EAGLContext *context;
-@property (nonatomic, strong) NSArray *models;
 
 @end
 
@@ -28,6 +28,8 @@
     NSUInteger _indexCount;
     
     GLKMatrix4 _projectionMatrix;
+    
+    std::vector<GLKMatrix4> _modelMatrices;
     
     BaseShader *_shader;
 }
@@ -59,12 +61,11 @@ const GLubyte indices[] = {
     
     [EAGLContext setCurrentContext:_context];
     
-#define TEST_TYPE 1
+#define TEST_TYPE 0
     
-    const NSUInteger testType = TEST_TYPE;
+    _modelMatrices = [self initModelForTestType:TEST_TYPE];
     
     [self loadShaders];
-    [self initModelForTestType:testType];
 
 #if TEST_TYPE != 0 
     
@@ -82,37 +83,6 @@ const GLubyte indices[] = {
 {
     _shader = [[BaseShader alloc] init];
     [_shader loadShader];
-}
-
-- (void) initModelForTestType:(NSUInteger) type
-{
-    const CGSize screenSize = [self sizeOfScreen];
-    const CGSize particleSize = [self sizeOfQuadsForTestType:type];
-    const NSUInteger numberOfItems = [self numberOfQuadsForScreenSize:screenSize andTestType:type];
-    const GLKVector2 scale = GLKVector2Make(particleSize.width, particleSize.height);
-    
-    NSMutableArray<Quad *> *models = [NSMutableArray arrayWithCapacity:numberOfItems];
-    
-    // position coordinates
-    NSUInteger xCoord = 0;
-    NSUInteger yCoord = screenSize.height - particleSize.height;
-    
-    for (NSUInteger i = 0; i < numberOfItems; ++i) {
-        
-        Quad *newQuad = [[Quad alloc] init];
-        [newQuad setPosition:GLKVector2Make(xCoord, yCoord)];
-        [newQuad setScale:scale];
-        
-        [models addObject:newQuad];
-        
-        xCoord += particleSize.width;
-        if ((xCoord + particleSize.width) >= screenSize.width) {
-            xCoord = 0;
-            yCoord -= particleSize.height;
-        }
-    }
-    
-    _models = models;
 }
 
 - (void) initVAO
@@ -137,6 +107,7 @@ const GLubyte indices[] = {
     glBindVertexArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+    glBindBuffer(GL_UNIFORM_BUFFER, 0);
 }
 
 - (GLKMatrix4) projectionMatrix
@@ -154,6 +125,9 @@ const GLubyte indices[] = {
     
     glClearColor(0, 104.f/255.f, 55.f/255.f, 1.f);
     
+    const CGSize screenSize = [self sizeOfScreen];
+    glViewport(0, 0, screenSize.width, screenSize.height);
+    
     glDisable(GL_SCISSOR_TEST);
     glDisable(GL_DEPTH_TEST);
     glDisable(GL_STENCIL_TEST);
@@ -164,16 +138,18 @@ const GLubyte indices[] = {
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
 {
-    glClear(GL_COLOR_BUFFER_BIT);
-    
     CFTimeInterval previousTimestamp = CFAbsoluteTimeGetCurrent();
+    
+    glClear(GL_COLOR_BUFFER_BIT);
     
 #if TEST_TYPE != 0
     
     glBindVertexArray(_vao);
     
-    for (Quad *quad in _models) {
-        glUniformMatrix4fv(_shader.u_modelMatrix, 1, 0, quad.modelMatrix.m);
+    const NSUInteger numberOfItems = _modelMatrices.size();
+    
+    for (NSUInteger i = 0; i < numberOfItems; ++i) {
+        glUniformMatrix4fv(_shader.u_modelMatrix, 1, 0, (_modelMatrices.at(i)).m);
         glDrawElements(GL_TRIANGLES, (int) _indexCount, GL_UNSIGNED_BYTE, 0);
     }
     
@@ -181,13 +157,16 @@ const GLubyte indices[] = {
 
 #else 
     
-    for (Quad *quad in _models) {
-        glUniformMatrix4fv(_shader.u_modelMatrix, 1, 0, quad.modelMatrix.m);
+    const NSUInteger numberOfItems = _modelMatrices.size();
+    
+    for (NSUInteger i = 0; i < numberOfItems; ++i) {   
+        glUniformMatrix4fv(_shader.u_modelMatrix, 1, 0, (_modelMatrices.at(i)).m);
         glDrawArrays(GL_POINTS, 0, 1);
     }
     
 #endif
     
+    glFinish();
     
     CFTimeInterval frameDuration = CFAbsoluteTimeGetCurrent() - previousTimestamp;
     NSLog(@"Frame duration: %f ms", frameDuration * 1000.0);
@@ -195,6 +174,37 @@ const GLubyte indices[] = {
 
 #pragma mark -
 #pragma mark Helper methods
+
+- (std::vector<GLKMatrix4>) initModelForTestType:(NSUInteger) type
+{
+    const CGSize screenSize = [self sizeOfScreen];
+    const CGSize particleSize = [self sizeOfQuadsForTestType:type];
+    const NSUInteger numberOfItems = [self numberOfQuadsForScreenSize:screenSize andTestType:type];
+    const GLKVector2 scale = GLKVector2Make(particleSize.width, particleSize.height);
+    
+    std::vector<GLKMatrix4> modelMatrices;
+    
+    // position coordinates
+    NSUInteger xCoord = 0;
+    NSUInteger yCoord = screenSize.height - particleSize.height;
+    
+    for (NSUInteger i = 0; i < numberOfItems; ++i) {
+        
+        GLKMatrix4 modelMatrix = GLKMatrix4Identity;
+        modelMatrix = GLKMatrix4Translate(modelMatrix, xCoord, yCoord, 0);
+        modelMatrix = GLKMatrix4Scale(modelMatrix, scale.x, scale.y, 0);
+        
+        modelMatrices.push_back(modelMatrix);
+        
+        xCoord += particleSize.width;
+        if ((xCoord + particleSize.width) >= screenSize.width) {
+            xCoord = 0;
+            yCoord -= particleSize.height;
+        }
+    }
+    
+    return modelMatrices;
+}
 
 - (NSUInteger) numberOfQuadsForScreenSize:(CGSize) screenSize andTestType:(NSUInteger) type
 {
