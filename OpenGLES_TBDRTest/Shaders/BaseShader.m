@@ -24,7 +24,6 @@
     // Attributes
     
     // Uniforms
-    self.u_modelMatrix = glGetUniformLocation(self.program, "u_modelMatrix");
     self.u_projectionMatrix = glGetUniformLocation(self.program, "u_projectionMatrix");
 }
 

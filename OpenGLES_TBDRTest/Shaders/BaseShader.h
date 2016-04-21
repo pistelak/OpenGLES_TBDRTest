@@ -22,7 +22,6 @@
 @property (readwrite) GLuint in_position;
 
 // Uniform Handles
-@property (readwrite) GLuint u_modelMatrix;
 @property (readwrite) GLuint u_projectionMatrix;
 
 - (void)loadShader;
