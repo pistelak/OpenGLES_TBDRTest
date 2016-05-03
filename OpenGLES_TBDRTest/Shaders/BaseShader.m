@@ -7,8 +7,6 @@
 //
 
 #import "BaseShader.h"
-
-// Shaders
 #define STRINGIFY(A) #A
 #include "SimpleVS.vsh"
 #include "SimpleFS.fsh"

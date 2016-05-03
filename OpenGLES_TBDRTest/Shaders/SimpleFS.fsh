@@ -1,13 +1,14 @@
 
-static const char* SimpleFS = STRINGIFY
-(
+static const char* SimpleFS = GLSL(300 es,
 
-// Uniforms
+precision mediump float;
 
+// Out
+out vec4 out_color;
+ 
 void main(void)
 {
-gl_FragColor = vec4(1.0);
+    out_color = vec4(1.0);
 }
-
-
+  
 );

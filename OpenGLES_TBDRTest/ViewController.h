@@ -11,18 +11,18 @@
 #import <OpenGLES/ES3/gl.h>
 #import <OpenGLES/ES3/glext.h>
 
+#import "OpenGLRenderer.h"
 #import "View.h"
 
-#import "Shaders/BaseShader.h"
-
-typedef struct {
-    GLfloat position[3];
-} vertex_t;
+typedef NS_ENUM(NSUInteger, ScreenFillingTestType) {
+    ScreenFillingTestPoint = 0,
+    ScreenFillingTestSquare,
+    ScreenFillingTestRectangle
+};
 
 @interface ViewController : GLKViewController <GLKViewDelegate>
 
-@property (nonatomic, strong) View *view;
-
+@property (nonatomic, assign) ScreenFillingTestType type;
 
 @end
 

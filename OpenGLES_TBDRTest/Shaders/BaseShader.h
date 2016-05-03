@@ -11,7 +11,7 @@
 #import <GLKit/GLKit.h>
 #import "ShaderProcessor.h"
 
-#define STRINGIFY(A) #A
+#define GLSL(version, shader)  "#version " #version "\n" #shader
 
 @interface BaseShader : NSObject
 
@@ -24,6 +24,6 @@
 // Uniform Handles
 @property (readwrite) GLuint u_projectionMatrix;
 
-- (void)loadShader;
+- (void) loadShader;
 
 @end
